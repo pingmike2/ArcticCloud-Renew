@@ -26,6 +26,5 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           THREAD_ID: ${{ secrets.THREAD_ID }}
-          TELEGRAM_API_URL: ${{ secrets.TELEGRAM_API_URL }}
           SOCKS5_PROXY: ${{ secrets.SOCKS5_PROXY }}
         run: python renew.py
