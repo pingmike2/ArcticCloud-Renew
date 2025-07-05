@@ -43,6 +43,8 @@
   }
 }
 
+```
+
 其中 122 和 123 是每台 VPS 的续期链接中对应的 ID，例如:
 
 https://vps.polarbear.nyc.mn/control/detail/122/
@@ -53,7 +55,7 @@ https://vps.polarbear.nyc.mn/control/detail/122/
 
 socks5://用户:密码@ip:端口
 
-📬 Telegram 设置方法
+### 📬 Telegram 设置方法
 	1.	搜索并私聊 @BotFather，创建一个 bot，获取 TELEGRAM_BOT_TOKEN。
 	2.	向你自己的 Telegram 发送一条消息，然后访问
 https://api.telegram.org/bot<你的TOKEN>/getUpdates
