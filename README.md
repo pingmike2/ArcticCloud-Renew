@@ -26,8 +26,6 @@
 | `TELEGRAM_BOT_TOKEN` | ✅ 推荐 | 用于发送 Telegram 通知的 Bot Token |
 | `CHAT_ID` | ✅ 推荐 | Telegram 你的账号或频道的 chat_id |
 | `SOCKS5_PROXY` | ✅ 推荐 | 使用 SOCKS5 代理访问网站（格式见下） |
-| `TELEGRAM_API_URL` | ❌ 可选 | 自定义 Telegram API 地址，默认为 `https://api.telegram.org` |
-| `THREAD_ID` | ❌ 可选 | 用于在 Telegram 频道话题中发消息，通常不需要设置 |
 
 ---
 
