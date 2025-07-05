@@ -1,16 +1,70 @@
-# ArcticCloud VPS 自动续期脚本
+# 🐧 ArcticCloud VPS 自动续期脚本
 
-使用 GitHub Actions 每 3 天自动运行，支持 Telegram 推送，支持 SOCKS5 全局代理访问。
+本项目基于 GitHub Actions 实现对 [ArcticCloud](https://vps.polarbear.nyc.mn)（又名 PolarBear VPS）账户中 VPS 的自动续期功能，支持：
 
-## 📦 环境变量配置（GitHub Secret）
+- ✅ 定时续期（每 3 天自动运行）
+- ✅ Telegram 通知推送（成功或失败都通知）
+- ✅ 全局 SOCKS5 代理支持（支持境外 VPS 访问）
 
-- `ArcticCloud_CONFIG`：格式如下
+---
+
+## 📅 自动运行说明
+
+- 默认通过 **GitHub Actions 每 3 天自动运行一次**。
+- 也可手动触发运行（在 GitHub 页面点击 `Run workflow`）。
+- 可在 Fork 的仓库中创建 [Secrets](#🔐环境变量配置github-secrets) 后生效。
+
+---
+
+## 🔐 环境变量配置（GitHub Secrets）
+
+点击你的仓库 → `Settings` → `Secrets and variables` → `Actions` → `New repository secret`，添加以下变量。
+
+| 变量名 | 是否必填 | 用途说明 |
+|--------|----------|-----------|
+| `ArcticCloud_CONFIG` | ✅ 必填 | VPS 登录账号密码及续期 ID 配置（详见下方示例） |
+| `TELEGRAM_BOT_TOKEN` | ✅ 推荐 | 用于发送 Telegram 通知的 Bot Token |
+| `CHAT_ID` | ✅ 推荐 | Telegram 你的账号或频道的 chat_id |
+| `SOCKS5_PROXY` | ✅ 推荐 | 使用 SOCKS5 代理访问网站（格式见下） |
+| `TELEGRAM_API_URL` | ❌ 可选 | 自定义 Telegram API 地址，默认为 `https://api.telegram.org` |
+| `THREAD_ID` | ❌ 可选 | 用于在 Telegram 频道话题中发消息，通常不需要设置 |
+
+---
+
+### 🧩 ArcticCloud_CONFIG 示例
+
 ```json
 {
-  "username": "your_username",
+  "username": "your_account_email_or_username",
   "password": "your_password",
   "VPS": {
     "DE-Frankfurt": 122,
     "UK-Portsmouth": 123
   }
 }
+
+其中 122 和 123 是每台 VPS 的续期链接中对应的 ID，例如:
+
+https://vps.polarbear.nyc.mn/control/detail/122/
+
+---
+
+### 🌐 SOCKS5_PROXY 示例
+
+socks5://用户:密码@ip:端口
+
+📬 Telegram 设置方法
+	1.	搜索并私聊 @BotFather，创建一个 bot，获取 TELEGRAM_BOT_TOKEN。
+	2.	向你自己的 Telegram 发送一条消息，然后访问
+https://api.telegram.org/bot<你的TOKEN>/getUpdates
+即可看到你的 chat_id。
+
+	3.	将 BOT_TOKEN 与 CHAT_ID 写入 Secrets
+
+🚀 使用方法
+	1.	Fork 本仓库到你自己的账号。
+	2.	点击你的仓库 → Settings → Secrets and variables → Actions，添加上述 Secrets。
+	3.	GitHub Actions 将每三天自动运行一次（北京时间上午 10 点），也可手动运行
+
+💡 鸣谢
+	•	使用 curl_cffi 库模拟真实浏览器请求
