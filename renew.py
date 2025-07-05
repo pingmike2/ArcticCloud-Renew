@@ -1,15 +1,16 @@
 # -- coding: utf-8 --
 import os
-import sys
 import json
 from curl_cffi import requests
 
-# 设置 SOCKS5 全局代理
+# 获取 SOCKS5 代理地址（如：socks5://user:pass@host:port）
 socks5_proxy = os.environ.get("SOCKS5_PROXY", "")
-if socks5_proxy:
-    requests.set_proxy(socks5_proxy)
+proxies = {
+    "http": socks5_proxy,
+    "https": socks5_proxy
+} if socks5_proxy else {}
 
-# 解析 ArcticCloud_CONFIG 环境变量
+# 加载 ArcticCloud_CONFIG 环境变量
 config = os.environ.get("ArcticCloud_CONFIG", '{"username": "", "password": "", "VPS": {}}')
 try:
     config = json.loads(config)
@@ -23,6 +24,7 @@ if not username or not password:
     exit()
 
 login_url = "https://vps.polarbear.nyc.mn/index/login/?referer=%2Fcontrol%2Findex%2F"
+
 telegram_bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 chat_id = os.environ.get("CHAT_ID", "")
 thread_id = os.environ.get("THREAD_ID", "")
@@ -36,14 +38,19 @@ def telegram_Bot(token, chat_id, message):
         'text': message
     }
     try:
-        r = requests.post(url, json=data, timeout=30)
+        r = requests.post(url, json=data, timeout=30, proxies=proxies)
         print(f"Telegram推送成功: {r.json().get('ok')}")
     except Exception as e:
         print(f"Telegram推送失败: {e}")
 
 def session_login(url, username, password):
     session = requests.Session(impersonate="chrome110")
-    session.get(url)
+    try:
+        session.get(url, proxies=proxies)
+    except Exception as e:
+        print(f"登录页访问失败: {e}")
+        return None
+
     data = {"swapname": username, "swappass": password}
     headers = {
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0 Safari/537.36",
@@ -51,7 +58,7 @@ def session_login(url, username, password):
         'referer': url,
     }
     try:
-        response = session.post(url, data=data, headers=headers, timeout=60)
+        response = session.post(url, data=data, headers=headers, proxies=proxies, timeout=60)
         if response.status_code == 200 and ('欢迎回来' in response.text or '退出登录' in response.text):
             print("✅ 登录成功")
             return session
@@ -65,7 +72,7 @@ session = session_login(login_url, username, password)
 if session:
     for k, v in config.get('VPS', {}).items():
         try:
-            r = session.post(f"https://vps.polarbear.nyc.mn/control/detail/{v}/pay/", timeout=120)
+            r = session.post(f"https://vps.polarbear.nyc.mn/control/detail/{v}/pay/", timeout=120, proxies=proxies)
             if r.status_code == 200 and "免费产品已经帮您续期到当前时间的最大续期时间" in r.text:
                 print(f"✅ {k}续期成功")
                 if telegram_bot_token and chat_id:
