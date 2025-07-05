@@ -53,18 +53,24 @@ https://vps.polarbear.nyc.mn/control/detail/122/
 
 socks5://用户:密码@ip:端口
 
+---
+
 ### 📬 Telegram 设置方法
-	1.	搜索并私聊 @BotFather，创建一个 bot，获取 TELEGRAM_BOT_TOKEN。
-	2.	向你自己的 Telegram 发送一条消息，然后访问
-https://api.telegram.org/bot<你的TOKEN>/getUpdates
-即可看到你的 chat_id。
+1. 搜索并私聊 [@BotFather](https://t.me/BotFather)，创建一个 bot，获取 `TELEGRAM_BOT_TOKEN`。  
+2. 向你自己的 Telegram 发送一条消息，然后访问以下链接：  
+  https://api.telegram.org/bot<你的TOKEN>/getUpdates
 
-	3.	将 BOT_TOKEN 与 CHAT_ID 写入 Secrets
+即可查看并获取你的 `chat_id`。  
+3. 将 `BOT_TOKEN` 和 `CHAT_ID` 写入 GitHub 仓库的 Secrets。
 
-🚀 使用方法
-	1.	Fork 本仓库到你自己的账号。
-	2.	点击你的仓库 → Settings → Secrets and variables → Actions，添加上述 Secrets。
-	3.	GitHub Actions 将每三天自动运行一次（北京时间上午 10 点），也可手动运行
+---
 
-💡 鸣谢
-	•	使用 curl_cffi 库模拟真实浏览器请求
+### 🚀 使用方法
+1. Fork 本仓库到你自己的 GitHub 账号。  
+2. 进入你的仓库，依次点击 **Settings → Secrets and variables → Actions**，添加上一步获取的 Secrets。  
+3. GitHub Actions 会自动每三天（北京时间上午 10 点）运行一次，也支持手动触发运行。
+
+---
+
+### 💡 鸣谢
+- 感谢 [curl_cffi](https://github.com/romis2012/curl_cffi) 库的作者，项目中使用该库模拟真实浏览器请求。
