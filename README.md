@@ -56,12 +56,11 @@ socks5://用户:密码@ip:端口
 ---
 
 ### 📬 Telegram 设置方法
-1. 搜索并私聊 [@BotFather](https://t.me/BotFather)，创建一个 bot，获取 `TELEGRAM_BOT_TOKEN`。  
-2. 向你自己的 Telegram 发送一条消息，然后访问以下链接：  
-  https://api.telegram.org/bot<你的TOKEN>/getUpdates
-
-即可查看并获取你的 `chat_id`。  
-3. 将 `BOT_TOKEN` 和 `CHAT_ID` 写入 GitHub 仓库的 Secrets。
+1. 搜索并私聊 [@BotFather](https://t.me/BotFather)，创建一个 Bot，获取 `TELEGRAM_BOT_TOKEN`。  
+2. 向你自己的 Telegram 发送一条消息，然后访问以下链接（将 `<你的TOKEN>` 替换为你的 Bot Token）：  
+   https://api.telegram.org/bot<你的TOKEN>/getUpdates  
+   打开后即可查看并获取你的 `chat_id`。  
+3. 将 `TELEGRAM_BOT_TOKEN` 和 `CHAT_ID` 添加到 GitHub 仓库的 Secrets 中。
 
 ---
 
