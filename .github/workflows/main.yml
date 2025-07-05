@@ -2,7 +2,7 @@ name: ArcticCloud VPS Renew
 
 on:
   schedule:
-    - cron: '0 2 */3 * *' # 每3天北京时间10:00运行（UTC+8 == UTC 2点）
+    - cron: '1 18 */3 * *' # 每3天北京时间10:00运行（UTC+8 == UTC 2点）
   workflow_dispatch:
 
 jobs:
