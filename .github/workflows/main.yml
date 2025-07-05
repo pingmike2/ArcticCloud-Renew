@@ -1,0 +1,31 @@
+name: ArcticCloud VPS Renew
+
+on:
+  schedule:
+    - cron: '0 2 */3 * *' # 每3天北京时间10:00运行（UTC+8 == UTC 2点）
+  workflow_dispatch:
+
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install curl_cffi
+
+      - name: Run ArcticCloud Renew
+        env:
+          ArcticCloud_CONFIG: ${{ secrets.ArcticCloud_CONFIG }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          THREAD_ID: ${{ secrets.THREAD_ID }}
+          TELEGRAM_API_URL: ${{ secrets.TELEGRAM_API_URL }}
+          SOCKS5_PROXY: ${{ secrets.SOCKS5_PROXY }}
+        run: python renew.py
