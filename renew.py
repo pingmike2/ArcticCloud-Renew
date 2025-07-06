@@ -72,7 +72,7 @@ session = session_login(login_url, username, password)
 if session:
     for k, v in config.get('VPS', {}).items():
         try:
-            r = session.post(f"https://vps.polarbear.nyc.mn/control/detail/{v}/pay/", timeout=120, proxies=proxies)
+            r = session.post(f"https://vps.polarbear.nyc.mn/control/detail/{v}/pay/", timeout=240, proxies=proxies)
             if r.status_code == 200 and "免费产品已经帮您续期到当前时间的最大续期时间" in r.text:
                 print(f"✅ {k}续期成功")
                 if telegram_bot_token and chat_id:
