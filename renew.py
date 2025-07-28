@@ -76,12 +76,12 @@ if session:
             if r.status_code == 200 and "免费产品已经帮您续期到当前时间的最大续期时间" in r.text:
                 print(f"✅ {k}续期成功")
                 if telegram_bot_token and chat_id:
-                    telegram_Bot(telegram_bot_token, chat_id, f"✅{k}已成功续期7天！😋：\n\n ArcticCloud VPS续期提醒")
+                    telegram_Bot(telegram_bot_token, chat_id, f"✅{k}已成功续期7天！😋\n\n ArcticCloud VPS续期提醒")
             else:
                 print(f"❌ {k}续期失败: 状态码 {r.status_code}")
                 if telegram_bot_token and chat_id:
-                    telegram_Bot(telegram_bot_token, chat_id, f"❌{k}续期失败！😭：\n\n ArcticCloud VPS续期提醒")
+                    telegram_Bot(telegram_bot_token, chat_id, f"❌{k}续期失败！😭\n\n ArcticCloud VPS续期提醒")
         except Exception as e:
             print(f"❌ {k}续期请求失败: {e}")
             if telegram_bot_token and chat_id:
-                telegram_Bot(telegram_bot_token, chat_id, f"❌{k}续期请求失败！😭：\n\n ArcticCloud VPS续期提醒")
+                telegram_Bot(telegram_bot_token, chat_id, f"❌{k}续期请求失败！😭\n\n ArcticCloud VPS续期提醒")
