@@ -26,7 +26,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           SOCKS5_PROXY: ${{ secrets.SOCKS5_PROXY }}
-        run: python renew.py
+        run: python renew2.py
       - name: Commit time.txt to repo
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
